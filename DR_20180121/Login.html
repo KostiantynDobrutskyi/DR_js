@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dr_2</title>
+    <style>
+
+        .falseM{
+            font-size: 24px;
+            font-family: sans-serif;
+            color: red;
+        }
+        .modal{
+            display: none;
+            position: absolute;
+        }
+        .open-Modal{
+            display: block;
+            position: absolute;
+        }
+
+        .shadow{
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.2);
+            position: fixed;
+        }
+
+        .content{
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            background: #FFFFE0;
+            width: 400px;
+            height: 200px;
+            border-radius: 20px;
+        }
+
+        .trueM{
+            left: 13%;
+            top: 40%;
+            position: relative;
+            display: inline;
+            font-size: 24px;
+            font-family: sans-serif;
+            color: green;
+
+        }
+
+        .close{
+            left: 10%;
+            top: 85%;
+            transform: translate(-50%,-50%);
+            position: relative;
+        }
+
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="falseM"></div>
+
+<div class="hideForms">
+<form action="#" name="loginF">
+    <div>
+        <label for="eml">Enter your email address</label>
+        <br>
+        <input type="email" name="eml" id="eml">
+    </div>
+    <br>
+    <div>
+        <label for="psw">Enter your password</label>
+        <br>
+        <input type="password" name="psw" id="psw">
+    </div>
+    <br>
+    <button class="confirm">Confirm</button>
+
+    <button class="hide">Hide Forms</button>
+</form>
+</div>
+
+<div class="modal">
+    <div class="shadow">
+        <div class="content">
+            <div class="trueM"></div>
+            <button class="close">Hide forms</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var loginForm = document.forms.loginF,
+        email = loginForm.elements.eml,
+        password = loginForm.elements.psw,
+        hideFrm = document.querySelector(".hideForms"),
+        formMassage = document.querySelector(".falseM");
+
+    var
+        modalWindow = document.querySelector(".modal"),
+        modalMessage = document.querySelector(".trueM"),
+        contentModal = document.querySelector(".content"),
+        modalClose = document.querySelector(".close"),
+        modalClose2 = document.querySelector(".hide");
+
+
+    var
+        trueEmail = "verify@i.ua",
+        truePassword= "1111",
+        trueMessage = "login to system implemented",
+        falseMessage ="login or password entered incorrectly";
+
+
+
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if(email.value===trueEmail && password.value===truePassword){
+            modalWindow.classList.add("open-Modal");
+            modalMessage.textContent = trueMessage;
+            modalClose2.style.display = "inline";
+            formMassage.textContent = "";
+        }
+        else {
+            formMassage.textContent = falseMessage;
+        }
+    });
+    
+    modalClose.addEventListener("click", function () {
+        hideFrm.style.display = "none";
+    });
+
+    contentModal.addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
+
+    window.addEventListener("click", function () {
+        modalWindow.classList.remove("open-Modal");
+    })
+
+
+</script>
+</body>
+</html>
