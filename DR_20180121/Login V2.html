@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <style>
+        body{
+            font-family: sans-serif;
+            color: #666;
+        }
+
+        .close-Form{
+            display: none;
+        }
+
+        .modal{
+            display: none;
+            position: absolute;
+        }
+
+        .opened{
+            display: block;
+            position: absolute;
+        }
+
+        .shadow{
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: fixed;
+            background: rgba(0,0,0,.2);
+        }
+
+        .content{
+            position: relative;
+            left: 50%;
+            top: 20%;
+            transform: translate(-50%,-50%);
+            background: beige;
+            width: 500px;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+        .message-True{
+            position: relative;
+            left: 22%;
+            top: 40%;
+            font-size: 24px;
+            color: green;
+            display: inline-block;
+        }
+
+        .message-False{
+            font-size: 24px;
+            color: red;
+        }
+
+        .close-Btn{
+            position: relative;
+            left: 30%;
+            top: 85%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="message-False"></div>
+<form action="#" name="logFrm">
+    <div>
+        <label for="emlInp">Enter your email address</label>
+        <br>
+        <input type="email" id="emlInp" name="emlInp">
+    </div>
+
+    <br>
+
+    <div>
+        <label for="passInp">Enter your password</label>
+        <br>
+        <input type="password" id="passInp" name="passInp">
+    </div>
+
+    <br>
+    <button>Confirm</button>
+</form>
+
+
+<div class="modal">
+    <div class="shadow">
+        <div class="content">
+            <div class="message-True"></div>
+            <button class="close-Btn">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var logFrm = document.forms.logFrm,
+        emailInput = logFrm.elements.emlInp,
+        passwordInput = logFrm.elements.passInp;
+
+    var truePassword = "1111",
+        trueEmail = "verify@i.ua",
+        trueMessage = "login to system implemented",
+        falseMessage = "login or password entered incorrectly";
+
+    var modalWindow = document.querySelector(".modal"),
+        closeModal = document.querySelector(".close-Btn"),
+        contentModal = document.querySelector(".content")
+        messageFalse = document.querySelector(".message-False"),
+        messageTrue = document.querySelector(".message-True");
+
+
+
+
+    logFrm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if(emailInput.value === trueEmail && passwordInput.value === truePassword){
+            modalWindow.classList.add("opened");
+            messageTrue.textContent = trueMessage;
+            this.classList.add("close-Form");
+            messageFalse.textContent = "";
+
+
+        }
+
+        else{
+            messageFalse.textContent = falseMessage;
+
+        }
+
+        emailInput.value = "";
+        passwordInput.value = "";
+    });
+
+    contentModal.addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
+
+    closeModal.addEventListener("click", function () {
+        modalWindow.classList.remove("opened");
+    });
+
+    window.addEventListener("click", function () {
+        modalWindow.classList.remove("opened");
+    })
+
+
+
+
+</script>
+</body>
+</html>
