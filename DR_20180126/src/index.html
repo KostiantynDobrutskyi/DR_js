@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <form action="#" class="form-horizontal" name="loginForm">
+                    <form action="#" class="form-horizontal" name="loginForm" id="loginForm">
                         <ul class="list-group">
 
 
@@ -52,7 +52,8 @@
                                     <label class="col-sm-3 control-label" for="inputPassword">
                                         Password</label>
                                     <div class="col-sm-5">
-                                        <input type="password" class="form-control" id="inputPassword" name="inputPassword">
+                                        <input type="password" class="form-control" id="inputPassword"
+                                               name="inputPassword">
                                         <span class="glyphicon  form-control-feedback" id="iconPassword"></span>
                                     </div>
 
@@ -84,7 +85,8 @@
                                         Gender</label>
                                     <div class="col-sm-5">
                                         <label class="radio-inline"><input type="radio" name="inputGender">Male</label>
-                                        <label class="radio-inline"><input type="radio" name="inputGender">Female</label>
+                                        <label class="radio-inline"><input type="radio"
+                                                                           name="inputGender">Female</label>
                                     </div>
 
                                     <label class="col-sm-4 control-label ss" id="messageGender" hidden>
@@ -103,24 +105,25 @@
                                     </div>
 
                                     <label class="col-sm-4 control-label ss" id="messageProfession" hidden>
-                                         Error</label>
+                                        Error</label>
                                 </div>
 
                             </li>
                         </ul>
 
-                        <div class="row">
-                            <div class="col-md-2 col-md-offset-10">
-                                <button id="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
-
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-10">
+                            <input type="submit" class="btn btn-primary" form="loginForm" value="Submit">
+                        </div>
+                    </div>
+                </div>
 
             </div>
-
-            <!-- List group -->
+            
 
         </div>
     </div>
@@ -176,46 +179,45 @@
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        if (isValid(emailValidation,messageEmailEl,groupEmailEL,iconEmailEL)){
+        if (isValid(emailValidation, messageEmailEl, groupEmailEL, iconEmailEL)) {
             return;
         }
 
-         if (isValid(passwordValidation,messagePasswordEl,groupPasswordEL,iconPasswordEL)){
+        if (isValid(passwordValidation, messagePasswordEl, groupPasswordEL, iconPasswordEL)) {
             return;
         }
 
-         if (isValid(confirmValidation,messageConfirmPswdEl,groupConfirmPswdEL,iconConfirmPswdEl)){
+        if (isValid(confirmValidation, messageConfirmPswdEl, groupConfirmPswdEL, iconConfirmPswdEl)) {
             return;
         }
 
-         if (isValidGender(genderValidation,messageGenderEl,groupGenderEL)){
+        if (isValidGender(genderValidation, messageGenderEl, groupGenderEL)) {
             return;
         }
 
-         if (isValid(professionValidation,messageProfessionEL,groupProfessionEL,iconProfessionEl)){
+        if (isValid(professionValidation, messageProfessionEL, groupProfessionEL, iconProfessionEl)) {
             return;
         }
     });
 
     inputEmailEl.addEventListener("keyup", isValid.bind(null,
-        emailValidation,messageEmailEl,groupEmailEL,iconEmailEL));
+        emailValidation, messageEmailEl, groupEmailEL, iconEmailEL));
 
     inputPasswordEl.addEventListener("keyup", isValid.bind(null,
-        passwordValidation,messagePasswordEl,groupPasswordEL,iconPasswordEL));
+        passwordValidation, messagePasswordEl, groupPasswordEL, iconPasswordEL));
 
     inputConfirmPswdEl.addEventListener("keyup", isValid.bind(null,
-        confirmValidation,messageConfirmPswdEl,groupConfirmPswdEL,iconConfirmPswdEl));
+        confirmValidation, messageConfirmPswdEl, groupConfirmPswdEL, iconConfirmPswdEl));
 
     inputProfessionEl.addEventListener("keyup", isValid.bind(null,
-        professionValidation,messageProfessionEL,groupProfessionEL,iconProfessionEl));
+        professionValidation, messageProfessionEL, groupProfessionEL, iconProfessionEl));
 
 
-
-    function isValid(func,messageEl, group, icon) {
+    function isValid(func, messageEl, group, icon) {
         var message = func();
 
 
-        if(message){
+        if (message) {
             messageEl.textContent = message;
             messageEl.hidden = !message;
             group.classList.add(classError);
@@ -236,11 +238,11 @@
     }
 
 
-    function isValidGender(func,messageEl, group) {
+    function isValidGender(func, messageEl, group) {
         var message = func();
 
 
-        if(message){
+        if (message) {
             messageEl.textContent = message;
             messageEl.hidden = !message;
             group.classList.add(classError);
@@ -278,8 +280,8 @@
     function passwordValidation() {
         var password = inputPasswordEl.value.trim();
 
-        if(password.length < MIN_LEN_PSWD){
-            return messagePasswordEl.textContent = "Password should be greater than "+MIN_LEN_PSWD;
+        if (password.length < MIN_LEN_PSWD) {
+            return messagePasswordEl.textContent = "Password should be greater than " + MIN_LEN_PSWD;
         }
 
         else {
@@ -289,15 +291,14 @@
 
     function confirmValidation() {
         var password = passwordValidation();
-        if(password){
+        if (password) {
             return password;
         }
-        else if (inputPasswordEl.value!==inputConfirmPswdEl.value)
-        {
+        else if (inputPasswordEl.value !== inputConfirmPswdEl.value) {
             return "Confirm does not match password";
         }
 
-        else{
+        else {
             return false;
         }
 
@@ -305,7 +306,7 @@
 
     function genderValidation() {
         var gender = inputGenderEl.value;
-        if(gender===""){
+        if (gender === "") {
             return messageGenderEl.textContent = "not selected gender";
         }
 
@@ -318,11 +319,11 @@
     function professionValidation() {
         var profession = inputProfessionEl.value.trim();
 
-        if(profession.length < MIN_LEN_PROF){
-            return messageProfessionEL.textContent = "Profession should be greater than "+MIN_LEN_PROF;
+        if (profession.length < MIN_LEN_PROF) {
+            return messageProfessionEL.textContent = "Profession should be greater than " + MIN_LEN_PROF;
         }
 
-        else if(!REGEX_PROF.test(profession)){
+        else if (!REGEX_PROF.test(profession)) {
             return messageProfessionEL.textContent = "incorrect entry";
         }
 
