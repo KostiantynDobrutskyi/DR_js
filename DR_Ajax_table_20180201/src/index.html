@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xsx-12">
+            <table class="table table-hover table-bordered">
+                <thead class="text-center thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>userName</th>
+                    <th>id</th>
+                    <th>birthDay</th>
+                    <th>contact</th>
+                    <th>email</th>
+                    <th>company</th>
+                    <th>address</th>
+                    <th>country</th>
+                </tr>
+                </thead>
+                <tbody id="output">
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var xhr = new XMLHttpRequest(),
+        output = document.querySelector("#output"),
+        mas = [];
+
+    xhr.open("get", "/data.json");
+    xhr.responseType = "json";
+    xhr.send();
+    xhr.addEventListener("readystatechange", function (e) {
+        if (this.readyState !== this.DONE) {
+            return;
+        }
+        for (var i = 0; i < this.response.length; i++) {
+            mas.push(this.response[i]);
+        }
+        mas.sort(masSort);
+
+        for(i = 0; i<mas.length;i++){
+            var content = mas[i],
+                tr = document.createElement("tr"),
+                image = document.createElement("td"),
+                userName = document.createElement("td"),
+                img = document.createElement("img"),
+                id = document.createElement("td"),
+                birthDay = document.createElement("td"),
+                contact = document.createElement("td"),
+                email = document.createElement("td"),
+                company = document.createElement("td"),
+                address = document.createElement("td"),
+                country = document.createElement("td"),
+                button = document.createElement("td");
+                btn = document.createElement("button");
+
+            tr.appendChild(button);
+            tr.appendChild(image);
+            tr.appendChild(userName);
+            tr.appendChild(id);
+            tr.appendChild(birthDay);
+            tr.appendChild(contact);
+            tr.appendChild(email);
+            tr.appendChild(company);
+            tr.appendChild(address);
+            tr.appendChild(country);
+
+
+            button.appendChild(btn);
+            img.setAttribute("src", content.photo);
+            image.appendChild(img);
+            userName.appendChild(document.createTextNode(content.userName));
+            id.appendChild(document.createTextNode(content.id));
+            birthDay.appendChild(document.createTextNode(content.birthDay));
+            contact.appendChild(document.createTextNode(content.contact));
+            email.appendChild(document.createTextNode(content.email));
+            company.appendChild(document.createTextNode(content.company));
+            address.appendChild(document.createTextNode(content.address));
+            country.appendChild(document.createTextNode(content.country));
+
+
+            btn.appendChild(document.createTextNode("Remove"));
+            btn.classList = "btn btn-danger";
+
+            output.appendChild(tr);
+        }
+    });
+
+    output.addEventListener("click", function (e) {
+        var elem = e.target;
+
+        if(elem.tagName.toLowerCase() === "button"){
+            var remove = elem;
+            remove = remove.parentElement;
+
+            while(true){
+                if(remove.tagName.toLowerCase()==="tr"){
+                    remove.remove(remove);
+                    break
+                }
+                remove = remove.parentElement;
+            }
+        }
+    });
+    
+  function masSort(a,b)
+  {
+      if(a.userName>b.userName){
+          return 1;
+      }
+      if(a.userName<b.userName){
+          return -1;
+      }
+      else
+          return 0;
+  }
+
+
+</script>
+</body>
+</html>
